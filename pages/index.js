@@ -1,3 +1,7 @@
-import Home from '../components/Home';
+import { Component } from 'react';
 
-export default Home;
+export default class Welcome extends Component {
+  render() {
+    return <h1>Hello World</h1>;
+  }
+}
