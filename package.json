@@ -20,6 +20,9 @@
     "redux-saga"
   ],
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/react-fontawesome": "^0.1.9",
     "@zeit/next-less": "^1.0.1",
     "antd": "^3.8.4",
     "babel-plugin-import": "^1.9.0",

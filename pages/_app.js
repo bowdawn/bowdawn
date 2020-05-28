@@ -11,8 +11,8 @@ import '../assets/self-styles.less';
 
 
 class NextApp extends App {
-  
-  static async getInitialProps ({ Component, ctx }) {
+
+  static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
 
     if (Component.getInitialProps) {
@@ -22,27 +22,16 @@ class NextApp extends App {
     return { pageProps };
   }
 
-  render () {
+  render() {
     const { Component, pageProps, store, router } = this.props;
     return (
       <Fragment>
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta charSet='utf-8' />
-          <title>Next-Antd-Scaffold - A better scaffold of Next.js</title>
-          <meta name='keywords' content='next.js,antd,scaffold' />
-          <meta name='description' content='🏠 A simple scaffold based on Next.js for quick use with ant-design, redux, redux-saga, fetch and pm2.' />
-          <link rel='shortcut icon' href='/static/favicon.ico' type='image/ico'/>
-          <style jsx global>{`
-            * {
-              margin: 0;
-              padding: 0;
-            }
-            body {
-              font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
-            }
-          `}
-          </style>
+          <title>bowdawn</title>
+          <link rel='shortcut icon' href='/static/favicon.ico' type='image/ico' />
+
         </Head>
         <Container>
           <Provider store={store}>
