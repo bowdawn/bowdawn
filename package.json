@@ -1,9 +1,9 @@
 {
-  "name": "next-antd-scafflod",
+  "name": "bowdawn",
   "version": "1.0.0",
-  "description": "A react ssr scafflod with ant-design based on Next.js.",
+  "description": "bowdawn",
   "main": "server.js",
-  "author": "luffyZh",
+  "author": "bowdawn",
   "license": "MIT",
   "scripts": {
     "dev": "next",
