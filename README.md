@@ -18,7 +18,7 @@ English | [简体中文](./README_zh_CN.md)
   | -- components            // React UI component
   | -- constants             // constant directory
       | -- ActionsTypes.js   // save all action type
-      | -- ApiUrlForBE.js    // save all apiUrl
+      
       | -- ...
   | -- containers            // React container component
   | -- core                  // mehtod dirctory
