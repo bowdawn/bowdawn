@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
 import Link from 'next/link';
-import { RoleType } from '../../constants/ConstTypes';
+
 
 class UserList extends Component {
   static propTypes = {
@@ -34,7 +34,7 @@ class UserList extends Component {
       title: 'Role',
       dataIndex: 'role',
       key: 'role',
-      render: (text) => <span>{RoleType[text]}</span>
+      render: (text) => <span>{User}</span>
     }];
   }
 
@@ -44,7 +44,7 @@ class UserList extends Component {
         dataSource: nextProps.list
       };
     }
-    return null; 
+    return null;
   }
 
   render() {
