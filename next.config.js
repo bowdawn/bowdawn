@@ -29,7 +29,7 @@ fs.writeFileSync(
 
 // fix: prevents error when .css files are required by node
 if (typeof require !== 'undefined') {
-  require.extensions['.less'] = (file) => {}
+  require.extensions['.less'] = (file) => { }
 }
 
 module.exports = withLess({
@@ -50,7 +50,7 @@ module.exports = withLess({
             // Will be available at `.next/stats.json`
             statsFilename: 'stats.json'
           }),
-      ]);
+        ]);
       config.devtool = 'source-map';
     } else {
       config.module.rules.push({
@@ -64,13 +64,13 @@ module.exports = withLess({
           path.resolve('redux'),
           path.resolve('containers')
         ],
-        options: {
-          configFile: path.resolve('.eslintrc'),
-          eslint: {
-            configFile: path.resolve(__dirname, '.eslintrc')
-          }
-        },
-        loader: 'eslint-loader'
+        // options: {
+        //   configFile: path.resolve('.eslintrc'),
+        //   eslint: {
+        //     configFile: path.resolve(__dirname, '.eslintrc')
+        //   }
+        // },
+        // loader: 'eslint-loader'
       });
       config.devtool = 'cheap-module-inline-source-map';
     }

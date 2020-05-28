@@ -1,7 +1,11 @@
 import { Component } from 'react';
+import { Button } from 'antd';
 
 export default class Welcome extends Component {
   render() {
-    return <h1>Hello World</h1>;
+    return (<div>
+      <div>Hello World</div>
+      <Button type='primary'>Hello World</Button>
+    </div>);
   }
 }
