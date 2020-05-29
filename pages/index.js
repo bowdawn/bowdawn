@@ -4,10 +4,10 @@ import { Button } from 'antd';
 export default class Welcome extends Component {
   render() {
     return (<div>
-      <div>Delete Static
+      <div> Флекс
         
       </div>
-      <Button type="primary">bowdawn</Button>
+      <Button type="primary" >Привет Слава</Button>
     </div>);
   }
 }
