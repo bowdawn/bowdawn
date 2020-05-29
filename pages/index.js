@@ -5,9 +5,9 @@ export default class Welcome extends Component {
   render() {
     return (<div>
       <div>
-        안녕하세요!!
+        Content
       </div>
-      <Button type="primary" >bowdawn</Button>
+      <Button type="primary" > >bowdawn</Button>
     </div>);
   }
 }
