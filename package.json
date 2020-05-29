@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "bowdawn",
   "author": "bowdawn",
+  "license": "MIT",
   "scripts": {
     "start": "next",
     "build": "next build"
