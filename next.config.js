@@ -69,11 +69,5 @@ module.exports = withLess({
     }
     return config;
   },
-  webpackDevMiddleware: config => {
-    // Perform customizations to webpack dev middleware config
-    // console.log(config, '@@')
-    // Important: return the modified config
-    return config;
-  },
 
 });
