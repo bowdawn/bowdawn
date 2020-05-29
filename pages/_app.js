@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
-import { Provider } from 'react-redux';
+
 
 import Layout from '../components/Layout';
 
@@ -21,22 +21,22 @@ export default class NextApp extends App {
   }
 
   render() {
-    const { Component, pageProps, store, router } = this.props;
+    const { Component, pageProps, router } = this.props;
     return (
       <Fragment>
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta charSet='utf-8' />
           <title>bowdawn</title>
-          <link rel='shortcut icon' href='/static/favicon.ico' type='image/ico' />
+          <link rel='shortcut icon' href='/static/seedling-solid.svg' type='image/svg' />
 
         </Head>
         <Container>
-          <Provider store={store}>
-            <Layout >
-              <Component {...pageProps} router={router} />
-            </Layout>
-          </Provider>
+
+          <Layout >
+            <Component {...pageProps} router={router} />
+          </Layout>
+
         </Container>
       </Fragment>
     );

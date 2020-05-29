@@ -1,3 +1,0 @@
-User-agent: *
-Sitemap: https://next-antd-scaffold.luffyzh.now.sh/static/sitemap.xml
-Disallow:
