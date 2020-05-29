@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 const withLess = require('@zeit/next-less');
 const lessToJS = require('less-vars-to-js');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
