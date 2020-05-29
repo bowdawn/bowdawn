@@ -1,15 +1,12 @@
 import { Fragment } from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
-import { Provider } from 'react-redux';
-import withRedux from 'next-redux-wrapper';
-import withReduxSaga from 'next-redux-saga';
-import createStore from '../redux/store';
+
 
 import '../assets/self-styles.less';
 
 
-class NextApp extends App {
+export default class NextApp extends App {
 
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
@@ -22,7 +19,7 @@ class NextApp extends App {
   }
 
   render() {
-    const { Component, pageProps, store, router } = this.props;
+    const { Component, pageProps, router } = this.props;
     return (
       <Fragment>
         <Head>
@@ -33,15 +30,14 @@ class NextApp extends App {
 
         </Head>
         <Container>
-          <Provider store={store}>
 
-            <Component {...pageProps} router={router} />
 
-          </Provider>
+          <Component {...pageProps} router={router} />
+
+
         </Container>
       </Fragment>
     );
   }
 }
 
-export default withRedux(createStore)(withReduxSaga({ async: true })(NextApp));
