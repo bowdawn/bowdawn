@@ -30,7 +30,7 @@ class NextApp extends App {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta charSet='utf-8' />
           <title>bowdawn</title>
-          <link rel='shortcut icon' href='/static/favicon.ico' type='image/ico' />
+          <link rel='shortcut icon' href='/static/seedling-solid.svg' type='image/svg' />
 
         </Head>
         <Container>
