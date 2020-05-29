@@ -5,7 +5,7 @@ export default class Welcome extends Component {
   render() {
     return (<div>
       <div>Hello World</div>
-      <Button type="primary">Hello World</Button>
+      <Button type="primary">bowdawn</Button>
     </div>);
   }
 }
