@@ -10,7 +10,8 @@ export default class Welcome extends Component {
   render() {
     return (
       <div>
-        <div>Hello World</div>
+        <div>пятница
+        </div>
         <Button type="primary">bowdawn</Button>
       </div>
     );
