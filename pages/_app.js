@@ -5,8 +5,7 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import createStore from '../redux/store';
-import Layout from '../components/Layout';
-import { RouterTitle } from '../constants/ConstTypes';
+
 import '../assets/self-styles.less';
 
 
@@ -35,9 +34,9 @@ class NextApp extends App {
         </Head>
         <Container>
           <Provider store={store}>
-            <Layout title={RouterTitle[router.pathname]}>
-              <Component {...pageProps} router={router} />
-            </Layout>
+
+            <Component {...pageProps} router={router} />
+
           </Provider>
         </Container>
       </Fragment>
