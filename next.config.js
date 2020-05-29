@@ -64,25 +64,13 @@ module.exports = withLess({
           path.resolve('redux'),
           path.resolve('containers')
         ],
-        // options: {
-        //   configFile: path.resolve('.eslintrc'),
-        //   eslint: {
-        //     configFile: path.resolve(__dirname, '.eslintrc')
-        //   }
-        // },
-        // loader: 'eslint-loader'
+
       });
       config.devtool = 'cheap-module-inline-source-map';
     }
     return config;
   },
-  webpackDevMiddleware: config => {
-    // Perform customizations to webpack dev middleware config
-    // console.log(config, '@@')
-    // Important: return the modified config
-    return config;
-  },
-  env: {
-    SERVER_HOST: 'http://www.luffyzhou.cn'
-  }
+
+
+
 });
