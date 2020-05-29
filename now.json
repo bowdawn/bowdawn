@@ -1,5 +1,10 @@
 {
   "version": 2,
-  "name": "next-antd-scaffold",
-  "builds": [{ "src": "package.json", "use": "@now/next" }]
+  "name": "bowdawn",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/next"
+    }
+  ]
 }
