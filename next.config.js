@@ -59,18 +59,11 @@ module.exports = withLess({
         include: [
           path.resolve('components'),
           path.resolve('pages'),
-          path.resolve('utils'),
+
           path.resolve('constants'),
-          path.resolve('redux'),
-          path.resolve('containers')
+
         ],
-        // options: {
-        //   configFile: path.resolve('.eslintrc'),
-        //   eslint: {
-        //     configFile: path.resolve(__dirname, '.eslintrc')
-        //   }
-        // },
-        // loader: 'eslint-loader'
+
       });
       config.devtool = 'cheap-module-inline-source-map';
     }
@@ -82,7 +75,5 @@ module.exports = withLess({
     // Important: return the modified config
     return config;
   },
-  env: {
-    SERVER_HOST: 'http://www.luffyzhou.cn'
-  }
+
 });
