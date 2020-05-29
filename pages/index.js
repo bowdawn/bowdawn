@@ -4,7 +4,7 @@ import { Button } from 'antd';
 export default class Welcome extends Component {
   render() {
     return (<div>
-      <div>Delete Header
+      <div>Delete Components
         
       </div>
       <Button type="primary">bowdawn</Button>
