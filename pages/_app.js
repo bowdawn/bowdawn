@@ -4,6 +4,7 @@ import Head from 'next/head';
 
 
 import '../assets/self-styles.less';
+import "./app.less";
 
 import { Layout, Menu } from 'antd';
 import {
@@ -30,6 +31,7 @@ export default class NextApp extends App {
   }
 
 
+
   state = {
     collapsed: false,
   };
@@ -43,7 +45,7 @@ export default class NextApp extends App {
   render() {
     const { Component, pageProps, router } = this.props;
     return (
-      <Fragment>
+      <Fragment >
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta charSet='utf-8' />
@@ -52,17 +54,17 @@ export default class NextApp extends App {
 
         </Head>
 
-        <Layout>
-          <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
+        <Layout >
+          <Sider trigger={null} collapsible collapsed={this.state.collapsed} style={{ height: "100vh" }}>
             <div className="logo" />
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1" icon={<UserOutlined />}>
+              <Menu.Item key="1" >
                 nav 1
             </Menu.Item>
-              <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+              <Menu.Item key="2" >
                 nav 2
             </Menu.Item>
-              <Menu.Item key="3" icon={<UploadOutlined />}>
+              <Menu.Item key="3" >
                 nav 3
             </Menu.Item>
             </Menu>
@@ -77,7 +79,7 @@ export default class NextApp extends App {
             <Content
               className="site-layout-background"
               style={{
-                margin: '24px 16px',
+                margin: '24px 24px',
                 padding: 24,
                 minHeight: 280,
               }}
@@ -90,6 +92,12 @@ export default class NextApp extends App {
         </Layout>
       </Fragment>
     );
+
+
   }
+
+
 }
+
+
 
