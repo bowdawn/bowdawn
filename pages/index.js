@@ -7,7 +7,7 @@ export default class Welcome extends Component {
       <div>
         Monday Content
       </div>
-      <Button type="primary" > >bowdawn</Button>
+      <Button type="primary" >bowdawn</Button>
     </div>);
   }
 }
