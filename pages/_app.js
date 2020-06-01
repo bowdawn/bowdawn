@@ -21,7 +21,7 @@ import Icon, {
 
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSeedling } from '@fortawesome/free-solid-svg-icons'
+import { faSeedling, faPalette, faMugHot } from '@fortawesome/free-solid-svg-icons'
 
 const { Header, Sider, Content } = Layout;
 const AntLink = Typography.Link;
@@ -86,12 +86,12 @@ export default class NextApp extends App {
                 </Link>
               </Menu.Item>
 
-              <Menu.Item key="2" icon={<VideoCameraOutlined />} >
+              <Menu.Item key="2" icon={<Icon component={() => <FontAwesomeIcon icon={faPalette} />} />} >
                 <Link href="/paintings">
                   {nav2[this.state.language]}
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3" icon={<UploadOutlined />} >
+              <Menu.Item key="3" icon={<Icon component={() => <FontAwesomeIcon icon={faMugHot} />} />} >
                 <Link href="/tea">
                   {nav3[this.state.language]}
                 </Link>
@@ -119,7 +119,7 @@ export default class NextApp extends App {
             <Content
               className="site-layout-background"
               style={{
-                margin: '24px 24px',
+                margin: 24,
                 padding: 24,
                 minHeight: 280,
               }}
