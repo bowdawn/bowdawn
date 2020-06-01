@@ -7,11 +7,7 @@ import '../assets/self-styles.less';
 import "./app.less";
 
 import { Layout, Menu, Space, Typography } from 'antd';
-
-
-
-
-import {
+import Icon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
@@ -19,7 +15,21 @@ import {
   UploadOutlined,
 } from '@ant-design/icons';
 
+
+
+
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSeedling } from '@fortawesome/free-solid-svg-icons'
+
+
+
+const SeedlingSvg = () => (<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="seedling" class="svg-inline--fa fa-seedling fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M64 96H0c0 123.7 100.3 224 224 224v144c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V320C288 196.3 187.7 96 64 96zm384-64c-84.2 0-157.4 46.5-195.7 115.2 27.7 30.2 48.2 66.9 59 107.6C424 243.1 512 147.9 512 32h-64z"></path></svg>);
+
+
+
+const SeedlingIcon = props => <Icon component={SeedlingSvg} {...props} />;
+
 
 const { Header, Sider, Content } = Layout;
 const AntLink = Typography.Link;
@@ -67,7 +77,7 @@ export default class NextApp extends App {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta charSet='utf-8' />
           <title>bowdawn</title>
-          <link rel='shortcut icon' href='/static/seedling-solid.svg' type='image/svg' />
+          <link rel='shortcut icon' href='/seedling.svg' type='image/svg' />
 
         </Head>
 
@@ -76,20 +86,22 @@ export default class NextApp extends App {
         <Layout >
           <Sider trigger={null} collapsible collapsed={this.state.collapsed} style={{ height: "100vh" }}>
             <div className="logo" />
+
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
 
-              <Menu.Item key="1" >
+              <Menu.Item key="1" icon={<Icon component={() => <FontAwesomeIcon icon={faSeedling} />} />} >
+
                 <Link href="/secret">
                   {nav1[this.state.language]}
                 </Link>
               </Menu.Item>
 
-              <Menu.Item key="2" >
+              <Menu.Item key="2" icon={<VideoCameraOutlined />}>
                 <Link href="/paintings">
                   {nav2[this.state.language]}
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3" >
+              <Menu.Item key="3" icon={<UploadOutlined />} >
                 <Link href="/tea">
                   {nav3[this.state.language]}
                 </Link>
@@ -103,15 +115,18 @@ export default class NextApp extends App {
                 onClick: this.toggle,
               })}
               <Space style={{ paddingRight: 24 }}>
+
                 <AntLink onClick={() => this.toggleLanguage("en")}>
                   English
                 </AntLink>
+
                 <AntLink onClick={() => this.toggleLanguage("ru")}>
                   Русский
                 </AntLink>
                 <AntLink onClick={() => this.toggleLanguage("kr")}>
                   한국어
                 </AntLink>
+
               </Space>
             </Header>
             <Content
