@@ -6,7 +6,7 @@ import Head from 'next/head';
 import '../assets/self-styles.less';
 import "./app.less";
 
-import { Layout, Menu, Space, Typography } from 'antd';
+import { Layout, Menu, Space, Typography, Tag } from 'antd';
 
 
 
@@ -106,13 +106,19 @@ export default class NextApp extends App {
               })}
               <Space style={{ paddingRight: 24 }}>
                 <AntLink onClick={() => this.toggleLanguage("en")}>
-                  English
+                  <Tag color="green">
+                    Eng
+                  </Tag>
                 </AntLink>
                 <AntLink onClick={() => this.toggleLanguage("ru")}>
-                  Русский
+                  <Tag color="green">
+                    Рус
+                  </Tag>
                 </AntLink>
                 <AntLink onClick={() => this.toggleLanguage("kr")}>
-                  한국어
+                  <Tag color="green">
+                    한
+                  </Tag>
                 </AntLink>
               </Space>
             </Header>
