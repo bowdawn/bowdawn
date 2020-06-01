@@ -11,7 +11,7 @@ import { Layout, Menu, Space, Typography } from 'antd';
 
 
 
-import {
+import Icon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
@@ -20,6 +20,8 @@ import {
 } from '@ant-design/icons';
 
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSeedling } from '@fortawesome/free-solid-svg-icons'
 
 const { Header, Sider, Content } = Layout;
 const AntLink = Typography.Link;
@@ -78,7 +80,7 @@ export default class NextApp extends App {
             <div className="logo" />
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
 
-              <Menu.Item key="1" icon={<UserOutlined />} >
+              <Menu.Item key="1" icon={<Icon component={() => <FontAwesomeIcon icon={faSeedling} />} />} >
                 <Link href="/secret">
                   {nav1[this.state.language]}
                 </Link>
