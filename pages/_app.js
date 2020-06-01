@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import Head from 'next/head';
 
 
@@ -14,9 +14,7 @@ import { Layout, Menu, Space, Typography, Tag } from 'antd';
 import Icon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+
 } from '@ant-design/icons';
 
 import Link from 'next/link'
@@ -82,18 +80,25 @@ export default class NextApp extends App {
 
               <Menu.Item key="1" icon={<Icon component={() => <FontAwesomeIcon icon={faSeedling} />} />} >
                 <Link href="/secret">
-                  {nav1[this.state.language]}
+                  <a>
+                    {nav1[this.state.language]}
+                  </a>
                 </Link>
+
               </Menu.Item>
 
               <Menu.Item key="2" icon={<Icon component={() => <FontAwesomeIcon icon={faPalette} />} />} >
                 <Link href="/paintings">
-                  {nav2[this.state.language]}
+                  <a>
+                    {nav2[this.state.language]}
+                  </a>
                 </Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<Icon component={() => <FontAwesomeIcon icon={faMugHot} />} />} >
                 <Link href="/tea">
-                  {nav3[this.state.language]}
+                  <a>
+                    {nav3[this.state.language]}
+                  </a>
                 </Link>
               </Menu.Item>
             </Menu>
@@ -130,9 +135,9 @@ export default class NextApp extends App {
                 minHeight: 280,
               }}
             >
-              <Container>
-                <Component {...pageProps} router={router} />
-              </Container>
+
+              <Component {...pageProps} router={router} />
+
             </Content>
           </Layout>
         </Layout>
