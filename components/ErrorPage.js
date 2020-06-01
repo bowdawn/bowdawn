@@ -32,7 +32,7 @@ class ErrorPage extends Component {
                 margin: 10px 0;
               }
             `}</style>
-            <img className='error-image' alt='error-img' src='/static/empty.png' />
+            <img className='error-image' alt='error-img' src='/empty.png' />
             <h3>The page is not found | 404～</h3>
             <Button onClick={() => Router.push('/')} type='primary' ghost>Back Home</Button>
           </div>
@@ -59,14 +59,14 @@ class ErrorPage extends Component {
                 margin: 10px 0;
               }
             `}</style>
-            <img className='error-image' alt='error-img' src='/static/unknown_error.png' />
+            <img className='error-image' alt='error-img' src='/unknown_error.png' />
             <h3>The page is error | 500～</h3>
             <Button onClick={() => Router.push('/')} type='primary' ghost>Back Home</Button>
           </div>
         );
         break;
       }
-      default: 
+      default:
         break;
     }
     return (

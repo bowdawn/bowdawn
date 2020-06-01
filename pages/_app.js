@@ -67,7 +67,7 @@ export default class NextApp extends App {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta charSet='utf-8' />
           <title>bowdawn</title>
-          <link rel='shortcut icon' href='/static/seedling-solid.svg' type='image/svg' />
+          <link rel='shortcut icon' href='/seedling-solid.svg' type='image/svg' />
 
         </Head>
 
@@ -78,18 +78,18 @@ export default class NextApp extends App {
             <div className="logo" />
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
 
-              <Menu.Item key="1" >
+              <Menu.Item key="1" icon={<UserOutlined />} >
                 <Link href="/secret">
                   {nav1[this.state.language]}
                 </Link>
               </Menu.Item>
 
-              <Menu.Item key="2" >
+              <Menu.Item key="2" icon={<VideoCameraOutlined />} >
                 <Link href="/paintings">
                   {nav2[this.state.language]}
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3" >
+              <Menu.Item key="3" icon={<UploadOutlined />} >
                 <Link href="/tea">
                   {nav3[this.state.language]}
                 </Link>
