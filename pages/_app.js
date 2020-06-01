@@ -54,7 +54,7 @@ export default class NextApp extends App {
         <Container>
 
 
-          <Layout>
+          {/* <Layout>
             <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
               <div className="logo" />
               <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
@@ -83,11 +83,11 @@ export default class NextApp extends App {
                   padding: 24,
                   minHeight: 280,
                 }}
-              >
-                <Component {...pageProps} router={router} />
-              </Content>
+              > */}
+          <Component {...pageProps} router={router} />
+          {/* </Content>
             </Layout>
-          </Layout>
+          </Layout> */}
 
 
 
