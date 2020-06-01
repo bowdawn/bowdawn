@@ -6,7 +6,11 @@ import Head from 'next/head';
 import '../assets/self-styles.less';
 import "./app.less";
 
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Space, Typography } from 'antd';
+
+
+
+
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -15,7 +19,15 @@ import {
   UploadOutlined,
 } from '@ant-design/icons';
 
+import Link from 'next/link'
+
 const { Header, Sider, Content } = Layout;
+const AntLink = Typography.Link;
+
+
+const nav1 = { en: "plants", ru: "растения", kr: "식물" }
+const nav2 = { en: "paintings", ru: "картинки", kr: "그림" }
+const nav3 = { en: "tea", ru: "чай", kr: "차" }
 
 
 export default class NextApp extends App {
@@ -34,6 +46,7 @@ export default class NextApp extends App {
 
   state = {
     collapsed: false,
+    language: "en"
   };
 
   toggle = () => {
@@ -41,6 +54,10 @@ export default class NextApp extends App {
       collapsed: !this.state.collapsed,
     });
   };
+
+  toggleLanguage = (language) => {
+    this.setState({ language });
+  }
 
   render() {
     const { Component, pageProps, router } = this.props;
@@ -54,27 +71,48 @@ export default class NextApp extends App {
 
         </Head>
 
+
+
         <Layout >
           <Sider trigger={null} collapsible collapsed={this.state.collapsed} style={{ height: "100vh" }}>
             <div className="logo" />
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+
               <Menu.Item key="1" >
-                nav 1
-            </Menu.Item>
+                <Link href="/secret">
+                  {nav1[this.state.language]}
+                </Link>
+              </Menu.Item>
+
               <Menu.Item key="2" >
-                nav 2
-            </Menu.Item>
+                <Link href="/paintings">
+                  {nav2[this.state.language]}
+                </Link>
+              </Menu.Item>
               <Menu.Item key="3" >
-                nav 3
-            </Menu.Item>
+                <Link href="/tea">
+                  {nav3[this.state.language]}
+                </Link>
+              </Menu.Item>
             </Menu>
           </Sider>
           <Layout className="site-layout">
-            <Header className="site-layout-background" style={{ padding: 0 }}>
+            <Header className="site-layout-background" style={{ padding: 0, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                 className: 'trigger',
                 onClick: this.toggle,
               })}
+              <Space style={{ paddingRight: 24 }}>
+                <AntLink onClick={() => this.toggleLanguage("en")}>
+                  English
+                </AntLink>
+                <AntLink onClick={() => this.toggleLanguage("ru")}>
+                  Русский
+                </AntLink>
+                <AntLink onClick={() => this.toggleLanguage("kr")}>
+                  한국어
+                </AntLink>
+              </Space>
             </Header>
             <Content
               className="site-layout-background"
