@@ -1,25 +1,17 @@
 import { Fragment } from 'react';
 import App from 'next/app';
 import Head from 'next/head';
-
-
 import '../assets/self-styles.less';
 import "./app.less";
-
 import { Layout, Menu, Space, Typography, Tag } from 'antd';
-
-
-
-
 import Icon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-
 } from '@ant-design/icons';
-
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSeedling, faPalette, faMugHot } from '@fortawesome/free-solid-svg-icons'
+
 
 const { Header, Sider, Content } = Layout;
 const AntLink = Typography.Link;
