@@ -8,7 +8,7 @@ const fetcher = async (...args) => {
 };
 
 export default function Index() {
-  const { data, error } = useSWR(`/api/plants/hi`, fetcher);
+  const { data, error } = useSWR(`/api/plants`, fetcher);
   if (!data) {
     return 'Loading...';
   }
@@ -17,6 +17,6 @@ export default function Index() {
     <div>
       {JSON.stringify(data.plants)}
     </div>
-    <Button type="primary" >bowdawn</Button>
+    <Button type="primary">bowdawn</Button>
   </div>);
 }
