@@ -1,6 +1,5 @@
-import firebase from '../../../lib/firebase'
+import firebase from '@lib/firebase'
 export default (req, res) => {
-
     firebase
         .collection('plants')
         .get()

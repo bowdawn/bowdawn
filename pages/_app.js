@@ -1,10 +1,9 @@
+
+
 import { Fragment } from 'react';
 import App from 'next/app';
 import Head from 'next/head';
-
-
-
-import '../assets/self-styles.less';
+import '@assets/self-styles.less';
 import "./app.less";
 
 import { Layout, Menu, Space, Typography, Tag } from 'antd';

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ErrorPage from '../components/ErrorPage';
+import ErrorPage from '@components/ErrorPage';
 export default class Error extends React.Component {
   static propTypes = {
     statusCode: PropTypes.number
