@@ -25,6 +25,7 @@ import { faSeedling, faPalette, faMugHot } from '@fortawesome/free-solid-svg-ico
 import themeVariables from '../constants/themeVariables'
 
 const { Header, Sider, Content } = Layout;
+const { CheckableTag } = Tag;
 const AntLink = Typography.Link;
 
 
@@ -107,20 +108,20 @@ export default class NextApp extends App {
                 onClick: this.toggle,
               })}
               <Space style={{ paddingRight: 24 }}>
-                <AntLink onClick={() => this.toggleLanguage("en")}>
-                  <Tag color="green">
+                <AntLink onClick={() => this.toggleLanguage("en")} >
+                  <CheckableTag checked={this.state.language === "en"} className={this.state.language === "en" ? "" : "ant-tag-green"}>
                     Eng
-                  </Tag>
+                  </CheckableTag>
                 </AntLink>
                 <AntLink onClick={() => this.toggleLanguage("ru")}>
-                  <Tag color="green">
+                  <CheckableTag checked={this.state.language === "ru"} className={this.state.language === "ru" ? "" : "ant-tag-green"}>
                     Рус
-                  </Tag>
+                  </CheckableTag>
                 </AntLink>
                 <AntLink onClick={() => this.toggleLanguage("kr")}>
-                  <Tag color="green">
+                  <CheckableTag checked={this.state.language === "kr"} className={this.state.language === "kr" ? "" : "ant-tag-green"}>
                     한
-                  </Tag>
+                  </CheckableTag>
                 </AntLink>
               </Space>
             </Header>
