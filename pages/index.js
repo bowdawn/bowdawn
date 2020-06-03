@@ -5,7 +5,7 @@ export default class Welcome extends Component {
   render() {
     return (<div>
       <div>
-        Hello Vercel Firebase!
+        Hello Vercel Firebase! updated react / react-dom
       </div>
       <Button type="primary" >bowdawn</Button>
     </div>);
