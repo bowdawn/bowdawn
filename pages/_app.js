@@ -3,10 +3,15 @@ import App from 'next/app';
 import Head from 'next/head';
 
 
+
 import '../assets/self-styles.less';
 import "./app.less";
 
 import { Layout, Menu, Space, Typography, Tag } from 'antd';
+
+
+
+
 
 
 
@@ -34,6 +39,8 @@ const nav2 = { en: "paintings", ru: "картинки", kr: "그림" }
 const nav3 = { en: "tea", ru: "чай", kr: "차" }
 
 
+
+
 export default class NextApp extends App {
 
 
@@ -56,6 +63,8 @@ export default class NextApp extends App {
   }
 
   render() {
+
+
     const { Component, pageProps, router } = this.props;
     return (
       <Fragment >
@@ -77,22 +86,22 @@ export default class NextApp extends App {
                 {[...Array(this.state.collapsed ? 3 : 12)].map((e, i) => <FontAwesomeIcon icon={faSeedling} color={themeVariables["@color-primary"]} key={i} />)}
               </div>
             </Link>
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1" icon={<Icon component={() => <FontAwesomeIcon icon={faSeedling} />} />} >
+            <Menu theme="dark" mode="inline" selectedKeys={[router.pathname]}>
+              <Menu.Item key="/plants" icon={<Icon component={() => <FontAwesomeIcon icon={faSeedling} />} />} >
                 <Link href="/plants">
                   <a>
                     {nav1[this.state.language]}
                   </a>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="2" icon={<Icon component={() => <FontAwesomeIcon icon={faPalette} />} />} >
+              <Menu.Item key="/paintings" icon={<Icon component={() => <FontAwesomeIcon icon={faPalette} />} />} >
                 <Link href="/paintings">
                   <a>
                     {nav2[this.state.language]}
                   </a>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3" icon={<Icon component={() => <FontAwesomeIcon icon={faMugHot} />} />} >
+              <Menu.Item key="/tea" icon={<Icon component={() => <FontAwesomeIcon icon={faMugHot} />} />} >
                 <Link href="/tea">
                   <a>
                     {nav3[this.state.language]}
