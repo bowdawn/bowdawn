@@ -142,7 +142,7 @@ export default class NextApp extends App {
               }}
             >
 
-              <Component {...pageProps} router={router} />
+              <Component {...pageProps}  {...this.state} router={router} />
 
             </Content>
           </Layout>
