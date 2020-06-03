@@ -5,7 +5,6 @@ import Head from 'next/head';
 
 import '../assets/self-styles.less';
 import "./app.less";
-import getConfig from "next/config"
 
 import { Layout, Menu, Space, Typography, Tag } from 'antd';
 
@@ -23,9 +22,7 @@ import Icon, {
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSeedling, faPalette, faMugHot } from '@fortawesome/free-solid-svg-icons'
-
-
-const { themeVariables } = getConfig().publicRuntimeConfig;
+import themeVariables from '../constants/themeVariables'
 
 const { Header, Sider, Content } = Layout;
 const AntLink = Typography.Link;
@@ -73,32 +70,20 @@ export default class NextApp extends App {
 
         <Layout >
           <Sider trigger={null} collapsible collapsed={this.state.collapsed} style={{ height: "100vh" }}>
-            <div className="logo">
-              {[...Array(this.state.collapsed ? 3 : 12)].map((e, i) => <FontAwesomeIcon icon={faSeedling} color={themeVariables["@color-primary"]} key={i} />)}
-            </div>
 
-
-
-
-            <div>
-              {console.log(JSON.stringify(themeVariables))}
-            </div>
-
-
-
-
-
+            <Link href="/">
+              <div className="logo">
+                {[...Array(this.state.collapsed ? 3 : 12)].map((e, i) => <FontAwesomeIcon icon={faSeedling} color={themeVariables["@color-primary"]} key={i} />)}
+              </div>
+            </Link>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-
               <Menu.Item key="1" icon={<Icon component={() => <FontAwesomeIcon icon={faSeedling} />} />} >
-                <Link href="/secret">
+                <Link href="/plants">
                   <a>
                     {nav1[this.state.language]}
                   </a>
                 </Link>
-
               </Menu.Item>
-
               <Menu.Item key="2" icon={<Icon component={() => <FontAwesomeIcon icon={faPalette} />} />} >
                 <Link href="/paintings">
                   <a>
