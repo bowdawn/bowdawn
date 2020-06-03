@@ -5,8 +5,11 @@ import Head from 'next/head';
 
 import '../assets/self-styles.less';
 import "./app.less";
+import getConfig from "next/config"
 
 import { Layout, Menu, Space, Typography, Tag } from 'antd';
+
+
 
 
 
@@ -21,6 +24,9 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSeedling, faPalette, faMugHot } from '@fortawesome/free-solid-svg-icons'
 
+
+const { themeVariables } = getConfig().publicRuntimeConfig;
+
 const { Header, Sider, Content } = Layout;
 const AntLink = Typography.Link;
 
@@ -32,15 +38,7 @@ const nav3 = { en: "tea", ru: "чай", kr: "차" }
 
 export default class NextApp extends App {
 
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
 
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps({ ctx });
-    }
-
-    return { pageProps };
-  }
 
 
 
@@ -75,7 +73,21 @@ export default class NextApp extends App {
 
         <Layout >
           <Sider trigger={null} collapsible collapsed={this.state.collapsed} style={{ height: "100vh" }}>
-            <div className="logo" />
+            <div className="logo">
+              {[...Array(this.state.collapsed ? 3 : 12)].map((e, i) => <FontAwesomeIcon icon={faSeedling} color={themeVariables["@color-primary"]} key={i} />)}
+            </div>
+
+
+
+
+            <div>
+              {console.log(JSON.stringify(themeVariables))}
+            </div>
+
+
+
+
+
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
 
               <Menu.Item key="1" icon={<Icon component={() => <FontAwesomeIcon icon={faSeedling} />} />} >
