@@ -4,17 +4,24 @@ import useSWR from 'swr';
 
 const fetcher = async (...args) => {
   const res = await fetch(...args);
-  console.log(res);
   return res.json();
 };
 
-export default class Welcome extends Component {
-  render() {
-    return (<div>
-      <div>
-        Hello Vercel Firebase! updated react / react-dom, import firebase adming and swr
-      </div>
-      <Button type="primary" >bowdawn</Button>
-    </div>);
+export default function Index() {
+
+
+
+  const { data, error } = useSWR(`/api/plants/hi`, fetcher);
+
+
+  if (!data) {
+    return 'Loading...';
   }
+  return (<div>
+    <div>
+      {JSON.stringify(data.plants)}
+    </div>
+    <Button type="primary" >bowdawn</Button>
+  </div>);
+
 }
