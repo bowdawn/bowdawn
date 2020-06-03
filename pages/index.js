@@ -18,6 +18,7 @@ export default function Index() {
     return 'Loading...';
   }
   return (<div>
+    <div>plants</div>
     <div>
       {JSON.stringify(data.plants)}
     </div>
