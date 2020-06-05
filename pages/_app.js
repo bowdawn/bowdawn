@@ -24,9 +24,30 @@ const { CheckableTag } = Tag;
 const AntLink = Typography.Link;
 
 
-const nav1 = { en: "plants", ru: "растения", kr: "식물" }
-const nav2 = { en: "paintings", ru: "картинки", kr: "그림" }
-const nav3 = { en: "tea", ru: "чай", kr: "차" }
+
+
+const siderLayout = [
+  {
+    label: {
+      en: "plants", ru: "растения", kr: "식물"
+    },
+    link: "/plants",
+    icon: faSeedling
+  },
+  {
+    label: {
+      en: "paintings", ru: "картинки", kr: "그림"
+    },
+    link: "/paintings",
+    icon: faPalette
+  },
+  {
+    label:
+      { en: "tea", ru: "чай", kr: "차" },
+    link: "/tea",
+    icon: faMugHot
+  }
+];
 
 
 
@@ -74,27 +95,13 @@ function NextApp({ Component, pageProps, router }) {
               </div>
             </Link>
             <Menu theme="dark" mode="inline" selectedKeys={[router.pathname]}>
-              <Menu.Item key="/plants" icon={<Icon component={() => <FontAwesomeIcon icon={faSeedling} />} />} >
-                <Link href="/plants">
+              {siderLayout.map((item) => <Menu.Item key={item.link} icon={<Icon component={() => <FontAwesomeIcon icon={item.icon} />} />} >
+                <Link href={item.link}>
                   <a>
-                    {nav1[language]}
+                    {item.label[language]}
                   </a>
                 </Link>
-              </Menu.Item>
-              <Menu.Item key="/paintings" icon={<Icon component={() => <FontAwesomeIcon icon={faPalette} />} />} >
-                <Link href="/paintings">
-                  <a>
-                    {nav2[language]}
-                  </a>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="/tea" icon={<Icon component={() => <FontAwesomeIcon icon={faMugHot} />} />} >
-                <Link href="/tea">
-                  <a>
-                    {nav3[language]}
-                  </a>
-                </Link>
-              </Menu.Item>
+              </Menu.Item>)}
             </Menu>
           </Sider>
           <Layout className="site-layout" >
