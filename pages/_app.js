@@ -5,28 +5,17 @@ import App from 'next/app';
 import Head from 'next/head';
 import '@assets/self-styles.less';
 import "./app.less";
-
 import { Layout, Menu, Space, Typography, Tag } from 'antd';
-
-
-
-
-
-
-
-
-
-
 import Icon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-
 } from '@ant-design/icons';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSeedling, faPalette, faMugHot } from '@fortawesome/free-solid-svg-icons';
+import themeVariables from '../constants/themeVariables';
 
-import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSeedling, faPalette, faMugHot } from '@fortawesome/free-solid-svg-icons'
-import themeVariables from '../constants/themeVariables'
+import { AuthProvider } from "../middleware/auth.js"
 
 const { Header, Sider, Content } = Layout;
 const { CheckableTag } = Tag;
@@ -39,24 +28,43 @@ const nav3 = { en: "tea", ru: "чай", kr: "차" }
 
 
 
+export function redirectUser(ctx, location) {
+  if (ctx.req) {
+    ctx.res.writeHead(302, { Location: location });
+    ctx.res.end();
+  } else {
+    Router.push(location);
+  }
+}
+
 
 export default class NextApp extends App {
-
-
-
-
+  static async getInitialProps({ Component, ctx }) {
+    //const { token } = parseCookies(ctx);
+    let pageProps = {};
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+    // Restrict unauthorized user
+    if (true) {
+      const isProtectedRoute =
+        ctx.pathname === "/home";
+      if (isProtectedRoute) {
+        redirectUser(ctx, "/");
+      }
+    }
+    return { ...pageProps };
+  }
 
   state = {
     collapsed: false,
     language: "en"
   };
-
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed,
     });
   };
-
   toggleLanguage = (language) => {
     this.setState({ language });
   }
@@ -142,8 +150,10 @@ export default class NextApp extends App {
               }}
             >
 
-              <Component {...pageProps}  {...this.state} router={router} />
 
+              <AuthProvider>
+                <Component {...pageProps}  {...this.state} router={router} />
+              </AuthProvider>
             </Content>
           </Layout>
         </Layout>
