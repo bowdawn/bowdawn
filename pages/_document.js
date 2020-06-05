@@ -12,6 +12,7 @@ export default class MyDocument extends Document {
   }
 
   render() {
+
     return (
       <html>
         <Head>

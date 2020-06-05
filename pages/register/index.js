@@ -6,30 +6,41 @@ import {
     Select,
 
     Button,
-    Row, Col
+    Row,
+    Col,
+    message,
 
 } from 'antd';
 
+import themeVariables from '@constants/themeVariables';
 
 const { Option } = Select;
 
 
 
-export default function RegistrationForm() {
+
+export default function RegistrationForm(props) {
+    console.log(props);
     const [form] = Form.useForm();
 
     const onFinish = values => {
         console.log('Received values of form: ', values);
     };
+
+    const onFinishFailed = ({ values, errorFields, outOfDate }) => {
+        errorFields.forEach(item => {
+            message.error({ style: { marginLeft: props.collapsed ? themeVariables["@message-collapsed"] : themeVariables["@message-not-collapsed"] }, content: item.errors })
+        });
+
+    }
     return (
         <Row style={{ height: "100%" }} justify="center" align="middle">
             <Col>
-
                 <Form
-
                     form={form}
                     name="register"
                     onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
                     style={{ maxWidth: 300 }}
                     scrollToFirstError
                 >
@@ -95,9 +106,9 @@ export default function RegistrationForm() {
                     <Form.Item >
                         <Row justify="center">
                             <Col>
-                                <Button type="primary" htmlType="submit">
+                                <Button type="primary" htmlType="submit" disabled={false}>
                                     Register
-                        </Button>
+                                </Button>
                             </Col>
                         </Row>
                     </Form.Item>
