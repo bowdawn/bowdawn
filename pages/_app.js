@@ -66,7 +66,7 @@ function NextApp({ Component, pageProps, router }) {
 
         </Head>
         <Layout >
-          <Sider trigger={null} collapsible collapsed={collapsed} style={{ height: "100vh" }} collapsedWidth={themeVariables["@message-not-collapsed"]} width={themeVariables["@message-collapsed"]} >
+          <Sider trigger={null} collapsible collapsed={collapsed} style={{ height: "100vh" }} collapsedWidth={themeVariables["@sider-collapsed-width"]} width={themeVariables["@sider-width"]} >
 
             <Link href="/">
               <div className="logo">

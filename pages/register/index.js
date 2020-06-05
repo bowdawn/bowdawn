@@ -29,8 +29,10 @@ export default function RegistrationForm(props) {
 
     const onFinishFailed = ({ values, errorFields, outOfDate }) => {
         errorFields.forEach(item => {
-            message.error({ style: { marginLeft: props.collapsed ? themeVariables["@message-collapsed"] : themeVariables["@message-not-collapsed"] }, content: item.errors })
+            message.error({ style: { marginLeft: props.collapsed ? themeVariables["@sider-collapsed-width"] : themeVariables["@sider-width"] }, content: item.errors })
         });
+
+
 
     }
     return (
