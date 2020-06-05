@@ -33,6 +33,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-localization": "^1.0.15",
     "swr": "^0.2.0"
   },
   "devDependencies": {

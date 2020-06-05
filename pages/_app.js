@@ -13,10 +13,10 @@ import Icon, {
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSeedling, faPalette, faMugHot } from '@fortawesome/free-solid-svg-icons';
+import { faSeedling, faPalette, faMugHot, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import themeVariables from '@constants/themeVariables';
-
 import { AuthProvider } from "../middleware/auth.js"
+import LocalizedStrings from 'react-localization';
 
 
 const { Header, Sider, Content } = Layout;
@@ -26,28 +26,30 @@ const AntLink = Typography.Link;
 
 
 
-const siderLayout = [
-  {
-    label: {
-      en: "plants", ru: "растения", kr: "식물"
-    },
-    link: "/plants",
-    icon: faSeedling
+const label = new LocalizedStrings({
+  en: {
+    plants: "plants",
+    paintings: "paintings",
+    tea: "tea",
+    register: "register"
   },
-  {
-    label: {
-      en: "paintings", ru: "картинки", kr: "그림"
-    },
-    link: "/paintings",
-    icon: faPalette
+  ru: {
+    plants: "растения",
+    paintings: "картинки",
+    tea: "чай",
+    register: "зарегистрироваться"
   },
-  {
-    label:
-      { en: "tea", ru: "чай", kr: "차" },
-    link: "/tea",
-    icon: faMugHot
+  kr: {
+    plants: "식물",
+    paintings: "그림",
+    tea: "차",
+    register: "회원가입"
   }
-];
+});
+
+
+
+
 
 
 
@@ -64,18 +66,43 @@ export function redirectUser(ctx, location) {
 
 function NextApp({ Component, pageProps, router }) {
 
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
     setCollapsed(!collapsed);
   };
+  const getSiderLayout = () => {
+    return ([
+      {
+        label: label.plants,
+        link: "/plants",
+        icon: faSeedling
+      },
+      {
+        label: label.paintings,
+        link: "/paintings",
+        icon: faPalette
+      },
+      {
+        label: label.tea,
+        link: "/tea",
+        icon: faMugHot
+      },
+      {
+        label: label.register,
+        link: "/register",
+        icon: faUserPlus
+      }
 
+    ])
+  };
+  let siderLayout = getSiderLayout();
   const [language, setLanguage] = useState('en');
   const toggleLanguage = (language) => {
+    label.setLanguage(language);
     setLanguage(language);
+    siderLayout = getSiderLayout();
   }
-
   message.config({ top: 90 });
-
   return (
     <Fragment >
       <ConfigProvider>
@@ -84,24 +111,25 @@ function NextApp({ Component, pageProps, router }) {
           <meta charSet='utf-8' />
           <title>bowdawn</title>
           <link rel='shortcut icon' href='/seedling-solid.svg' type='image/svg' />
-
         </Head>
         <Layout >
           <Sider trigger={null} collapsible collapsed={collapsed} style={{ height: "100vh" }} collapsedWidth={themeVariables["@sider-collapsed-width"]} width={themeVariables["@sider-width"]} >
 
             <Link href="/">
               <div className="logo">
-                {[...Array(collapsed ? 3 : 6)].map((e, i) => <FontAwesomeIcon icon={faSeedling} color={themeVariables["@color-primary"]} key={i} />)}
+                {[...Array(collapsed ? 3 : 6)].map((e, i) => <FontAwesomeIcon icon={faSeedling} color={themeVariables["@color-primary"]} key={"icon" + i} />)}
               </div>
             </Link>
             <Menu theme="dark" mode="inline" selectedKeys={[router.pathname]}>
-              {siderLayout.map((item) => <Menu.Item key={item.link} icon={<Icon component={() => <FontAwesomeIcon icon={item.icon} />} />} >
-                <Link href={item.link}>
-                  <a>
-                    {item.label[language]}
-                  </a>
-                </Link>
-              </Menu.Item>)}
+              {siderLayout.map((item) =>
+                <Menu.Item key={item.link} icon={<Icon component={() => <FontAwesomeIcon icon={item.icon} />} />} >
+                  <Link href={item.link}>
+                    <a>
+                      {item.label}
+                    </a>
+                  </Link>
+                </Menu.Item>)
+              }
             </Menu>
           </Sider>
           <Layout className="site-layout" >
