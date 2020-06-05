@@ -70,8 +70,6 @@ export default class NextApp extends App {
   }
 
   render() {
-
-
     const { Component, pageProps, router } = this.props;
     return (
       <Fragment >
