@@ -13,7 +13,7 @@ import Icon, {
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSeedling, faPalette, faMugHot, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSeedling, faPalette, faMugHot, faUserPlus, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import themeVariables from '@constants/themeVariables';
 import { AuthProvider } from "../middleware/auth.js"
 import LocalizedStrings from 'react-localization';
@@ -31,19 +31,22 @@ const label = new LocalizedStrings({
     plants: "plants",
     paintings: "paintings",
     tea: "tea",
-    register: "register"
+    register: "register",
+    login: "login"
   },
   ru: {
     plants: "растения",
     paintings: "картинки",
     tea: "чай",
-    register: "зарегистрироваться"
+    register: "зарегистрироваться",
+    login: "логин"
   },
   kr: {
     plants: "식물",
     paintings: "그림",
     tea: "차",
-    register: "회원가입"
+    register: "회원가입",
+    login: "로그인"
   }
 });
 
@@ -91,6 +94,11 @@ function NextApp({ Component, pageProps, router }) {
         label: label.register,
         link: "/register",
         icon: faUserPlus
+      },
+      {
+        label: label.login,
+        link: "/login",
+        icon: faSignInAlt
       }
 
     ])
@@ -166,7 +174,7 @@ function NextApp({ Component, pageProps, router }) {
 
 
             >
-              < AuthProvider >
+              <AuthProvider>
                 <Component {...pageProps} collapsed={collapsed} language={language} router={router} />
               </AuthProvider>
             </Content>

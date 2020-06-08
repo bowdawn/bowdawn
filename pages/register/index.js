@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Form,
     Input,
@@ -13,6 +13,7 @@ import {
 } from 'antd';
 
 import themeVariables from '@constants/themeVariables';
+import app from "@lib/base"
 
 const { Option } = Select;
 
@@ -23,8 +24,18 @@ export default function RegistrationForm(props) {
     console.log(props);
     const [form] = Form.useForm();
 
-    const onFinish = values => {
+    const onFinish = async values => {
         console.log('Received values of form: ', values);
+        const { email, password } = values;
+        try {
+            await app
+                .auth()
+                .createUserWithEmailAndPassword(email, password);
+            message.success('This is a success message');
+
+        } catch (error) {
+            message.error(error.toString());
+        }
     };
 
     const onFinishFailed = ({ values, errorFields, outOfDate }) => {
