@@ -14,7 +14,7 @@ export default function Index({ language, collapsed, ...props }) {
         const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "deletePlant", plantId: id }) });
         if (res.status === 200) {
             message.success("the plant was deleted");
-            mutate('/api/plants');
+            mutate('/api');
 
         }
     };
