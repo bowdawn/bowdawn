@@ -10,15 +10,15 @@ const fetcher = async (...args) => {
 export default function Index({ language, collapsed, ...props }) {
 
     async function deletePlant(id) {
-        const plantId = {
-            plantId: id
-        };
-        const res = await fetch('/api/plants/delete', { method: 'POST', body: JSON.stringify(plantId) })
-        if (res.status === 200) {
-            message.success("the plant was deleted");
-            mutate('/api/plants')
+        // const plantId = {
+        //     plantId: id
+        // };
+        // const res = await fetch('/api/plants/delete', { method: 'POST', body: JSON.stringify(plantId) })
+        // if (res.status === 200) {
+        //     message.success("the plant was deleted");
+        //     mutate('/api/plants');
 
-        }
+        // }
     };
 
     const { data, error } = useSWR(`/api/plants`, fetcher);
@@ -35,13 +35,17 @@ export default function Index({ language, collapsed, ...props }) {
 
     return (
         <div>
-
             <Space direction="vertical">
                 <Link href="/plants/create">Go to Create!</Link>
                 {plants.map((plant) => {
                     switch (language) {
                         case "en":
-                            return <div><Space><div>{plant.nameEn}</div> <Button onClick={() => deletePlant(plant.id)}>delete</Button></Space></div>
+                            return <div>
+                                <Space>
+                                    <div>{plant.nameEn}</div>
+                                    <Button onClick={() => deletePlant(plant.id)}>delete</Button>
+                                </Space>
+                            </div>
                         case "ru":
                             return <div><Space><div>{plant.nameRu}</div> <Button onClick={() => deletePlant(plant.id)}>удалить</Button></Space></div>
                         case "kr":
