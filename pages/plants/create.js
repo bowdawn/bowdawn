@@ -12,7 +12,7 @@ export default function CreatePlant({ language, collapsed, ...props }) {
             nameRu: nameRu,
             nameKr: nameKr
         };
-        const res = await fetch('/api/plants/create', { method: 'POST', body: JSON.stringify(plant) })
+        const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "createPlant", plant: plant }) })
         if (res.status === 200) {
             message.success("this is a success message");
 
@@ -26,9 +26,7 @@ export default function CreatePlant({ language, collapsed, ...props }) {
     }
     return (
         <Form
-
             name="basic"
-
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
         >

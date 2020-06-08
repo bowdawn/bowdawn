@@ -3,17 +3,15 @@ import { Space, Button, message } from "antd"
 import useSWR, { mutate } from 'swr';
 import Link from 'next/link';
 
-const fetcher = async (...args) => {
-    const res = await fetch(...args);
+const fetcher = async () => {
+    const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "getPlantList" }) });
     return res.json();
 };
 export default function Index({ language, collapsed, ...props }) {
 
     async function deletePlant(id) {
-        const plantId = {
-            plantId: id
-        };
-        const res = await fetch('/api/plants/delete', { method: 'POST', body: JSON.stringify(plantId) })
+
+        const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "deletePlant", plantId: id }) });
         if (res.status === 200) {
             message.success("the plant was deleted");
             mutate('/api/plants');
@@ -21,7 +19,7 @@ export default function Index({ language, collapsed, ...props }) {
         }
     };
 
-    const { data, error } = useSWR(`/api/plants`, fetcher);
+    const { data, error } = useSWR(`/api`, fetcher);
     if (error) {
         return 'failed to load'
     }
