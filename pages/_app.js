@@ -6,10 +6,12 @@ import App from 'next/app';
 import Head from 'next/head';
 import '@assets/self-styles.less';
 import "./app.less";
-import { Layout, Menu, Space, Typography, Tag, ConfigProvider, message } from 'antd';
+import { Layout, Menu, Space, Typography, Tag, ConfigProvider, message, Dropdown } from 'antd';
 import Icon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  DownOutlined,
+  SettingOutlined
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,9 +21,9 @@ import { AuthProvider } from "../middleware/auth.js"
 import LocalizedStrings from 'react-localization';
 
 
+
 const { Header, Sider, Content } = Layout;
 const { CheckableTag } = Tag;
-const AntLink = Typography.Link;
 
 
 
@@ -58,6 +60,10 @@ const label = new LocalizedStrings({
 
 
 
+
+
+
+
 export function redirectUser(ctx, location) {
   if (ctx.req) {
     ctx.res.writeHead(302, { Location: location });
@@ -68,6 +74,7 @@ export function redirectUser(ctx, location) {
 }
 
 function NextApp({ Component, pageProps, router }) {
+
 
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
@@ -111,6 +118,55 @@ function NextApp({ Component, pageProps, router }) {
     siderLayout = getSiderLayout();
   }
   message.config({ top: 90 });
+
+  const settingsClick = (item, key, keyPath, domEvent) => {
+    console.log(key);
+
+    switch (key) {
+      case "en":
+        toggleLanguage("en");
+        break;
+      case "ru":
+        toggleLanguage("ru");
+        break;
+      case "kr":
+        toggleLanguage("kr");
+        break;
+      default:
+
+    }
+  };
+
+  const menu = (
+    <Menu placement="bottomRight" style={{ marginRight: "24px" }} onClick={({ item, key, keyPath, domEvent }) => settingsClick(item, key, keyPath, domEvent)}>
+      {/* <Menu.Item>Login</Menu.Item>
+      <Menu.Item>Logout</Menu.Item> */}
+      <Menu.Item key="en">
+
+        <CheckableTag checked={language === "en"} className={language === "en" ? "" : "ant-tag-green"}>
+          Eng
+        </CheckableTag>
+
+      </Menu.Item>
+      <Menu.Item key="ru">
+
+        <CheckableTag checked={language === "ru"} className={language === "ru" ? "" : "ant-tag-green"}>
+          Рус
+            </CheckableTag>
+
+      </Menu.Item>
+      <Menu.Item key="kr">
+
+        <CheckableTag checked={language === "kr"} className={language === "kr" ? "" : "ant-tag-green"}>
+          한
+          </CheckableTag>
+
+      </Menu.Item>
+
+
+    </Menu>
+  );
+
   return (
     <Fragment >
       <ConfigProvider>
@@ -146,23 +202,12 @@ function NextApp({ Component, pageProps, router }) {
                 className: 'trigger',
                 onClick: toggle,
               })}
-              <Space style={{ paddingRight: 24 }}>
-                <AntLink onClick={() => toggleLanguage("en")} >
-                  <CheckableTag checked={language === "en"} className={language === "en" ? "" : "ant-tag-green"}>
-                    Eng
-                </CheckableTag>
-                </AntLink>
-                <AntLink onClick={() => toggleLanguage("ru")}>
-                  <CheckableTag checked={language === "ru"} className={language === "ru" ? "" : "ant-tag-green"}>
-                    Рус
-                </CheckableTag>
-                </AntLink>
-                <AntLink onClick={() => toggleLanguage("kr")}>
-                  <CheckableTag checked={language === "kr"} className={language === "kr" ? "" : "ant-tag-green"}>
-                    한
-                </CheckableTag>
-                </AntLink>
-              </Space>
+
+              <Dropdown overlay={menu}>
+                <a className="ant-dropdown-link" onClick={e => e.preventDefault()} style={{ paddingRight: 24, display: "flex", alignItems: "center" }}>
+                  <SettingOutlined style={{ fontSize: 25 }} />
+                </a>
+              </Dropdown>
             </Header>
             <Content
               className="site-layout-background"
