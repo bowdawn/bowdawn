@@ -1,23 +1,43 @@
 import React, { useState } from "react";
+
 import { storage } from "@lib/base";
+
 import { Upload, Modal, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+
 export default function ReactFirebaseFileUpload() {
+
+  const [url, setUrl] = useState("");
+
+
+
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([]);
+
+
+
+
+
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
+
+
     setPreviewImage(file.url || file.preview);
     setPreviewVisible(true);
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
-  };
-  const onChange = async (info) => {
 
+  };
+
+
+
+  const onChange = async (info) => {
+    console.log(info);
     if (info.file.status === 'uploading') {
+      console.log(info.file, info.fileList);
       const uploadTask = storage.ref(`images/${info.file.name}`).put(info.file.originFileObj);
       uploadTask.on(
         "state_changed",
@@ -36,6 +56,7 @@ export default function ReactFirebaseFileUpload() {
         }
       );
       setFileList(info.fileList);
+
     }
     if (info.file.status === 'done') {
       message.success(`${info.file.name} file uploaded successfully`);
@@ -43,6 +64,12 @@ export default function ReactFirebaseFileUpload() {
       message.error(`${info.file.name} file upload failed.`);
     }
   };
+
+
+
+
+
+
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -51,6 +78,11 @@ export default function ReactFirebaseFileUpload() {
   );
   return (
     <div>
+
+
+
+
+
       <Upload
         listType="picture-card"
         fileList={fileList}
@@ -70,6 +102,9 @@ export default function ReactFirebaseFileUpload() {
     </div >
   );
 };
+
+
+
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
