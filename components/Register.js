@@ -21,17 +21,17 @@ import app from "@lib/base"
 
 
 export default function RegistrationForm(props) {
-    console.log(props);
     const [form] = Form.useForm();
 
     const onFinish = async values => {
-        console.log('Received values of form: ', values);
+
         const { email, password } = values;
         try {
             await app
                 .auth()
                 .createUserWithEmailAndPassword(email, password);
-            message.success('This is a success message');
+            message.success('Registration Success');
+            props.onFinish();
 
         } catch (error) {
             message.error(error.toString());
