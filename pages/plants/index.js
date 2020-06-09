@@ -1,7 +1,9 @@
 
-import { Space, Button, message } from "antd"
+import { Space, Button, message, Modal } from "antd"
 import useSWR, { mutate } from 'swr';
-import Link from 'next/link';
+import CreatePlant from "@components/plants/create"
+
+import { useState } from 'react';
 
 const fetcher = async () => {
     const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "getPlantList" }) });
@@ -9,6 +11,7 @@ const fetcher = async () => {
 };
 export default function Index({ language, collapsed, ...props }) {
 
+    const [createPlantVisible, setCreatePlantVisible] = useState(false);
     async function deletePlant(id) {
 
         const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "deletePlant", plantId: id }) });
@@ -35,7 +38,7 @@ export default function Index({ language, collapsed, ...props }) {
         <div>
 
             <Space direction="vertical">
-                <Link href="/plants/create">Go to Create!</Link>
+
                 {plants.map((plant) => {
                     switch (language) {
                         case "en":
@@ -52,7 +55,22 @@ export default function Index({ language, collapsed, ...props }) {
                         default:
                             return "default"
                     }
-                })}</Space>
+                })}
+                <Button onClick={() => setCreatePlantVisible(true)}>Create</Button>
+            </Space>
+
+
+            <Modal
+                title="Enter Plant Info"
+                visible={createPlantVisible}
+                onCancel={() => setCreatePlantVisible(false)}
+                footer={null}
+            >
+                <CreatePlant onFinish={() => {
+                    setCreatePlantVisible(false);
+                    mutate('/api');
+                }} />
+            </Modal>
         </div>
     );
 }

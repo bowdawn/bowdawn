@@ -14,8 +14,8 @@ export default function CreatePlant({ language, collapsed, ...props }) {
         };
         const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "createPlant", plant: plant }) })
         if (res.status === 200) {
-            message.success("this is a success message");
-
+            message.success("Plant successfully created");
+            props.onFinish()
         }
     };
 

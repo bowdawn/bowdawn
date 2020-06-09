@@ -1,7 +1,7 @@
 
 
 import { Fragment, useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+
 import App from 'next/app';
 import Head from 'next/head';
 import '@assets/self-styles.less';
@@ -10,7 +10,7 @@ import { Layout, Menu, Space, Typography, Tag, ConfigProvider, message, Dropdown
 import Icon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  DownOutlined,
+
   SettingOutlined
 } from '@ant-design/icons';
 import Link from 'next/link';
