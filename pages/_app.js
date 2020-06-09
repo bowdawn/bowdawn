@@ -23,13 +23,8 @@ import Login from "@components/Login"
 import Register from "@components/Register"
 import app from "@lib/base.js";
 
-
-
 const { Header, Sider, Content } = Layout;
 const { CheckableTag } = Tag;
-
-
-
 
 const label = new LocalizedStrings({
   en: {
@@ -99,9 +94,7 @@ function NextApp({ Component, pageProps, router }) {
     siderLayout = getSiderLayout();
   }
   message.config({ top: 90 });
-  const settingsClick = (item, key, keyPath, domEvent) => {
-    console.log(key);
-
+  const settingsClick = (key) => {
     switch (key) {
       case "logout":
         app.auth().signOut();
@@ -123,12 +116,11 @@ function NextApp({ Component, pageProps, router }) {
         toggleLanguage("kr");
         break;
       default:
-
     }
   };
 
   const menu = (
-    <Menu placement="bottomRight" style={{ marginRight: "24px" }} onClick={({ item, key, keyPath, domEvent }) => settingsClick(item, key, keyPath, domEvent)}>
+    <Menu placement="bottomRight" style={{ marginRight: "24px" }} onClick={({ item, key, keyPath, domEvent }) => settingsClick(key)}>
       {(currentUser ?
         [<Menu.Item key="logout">{label.logout}</Menu.Item>] :
         [<Menu.Item key="login">{label.login}</Menu.Item>,
