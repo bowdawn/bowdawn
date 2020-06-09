@@ -6,7 +6,7 @@ import App from 'next/app';
 import Head from 'next/head';
 import '@assets/self-styles.less';
 import "./app.less";
-import { Layout, Menu, Space, Typography, Tag, ConfigProvider, message, Dropdown } from 'antd';
+import { Layout, Menu, Space, Typography, Tag, ConfigProvider, message, Dropdown, Modal, Button } from 'antd';
 import Icon, {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -19,6 +19,8 @@ import { faSeedling, faPalette, faMugHot, faUserPlus, faSignInAlt } from '@forta
 import themeVariables from '@constants/themeVariables';
 import { AuthProvider } from "../middleware/auth.js"
 import LocalizedStrings from 'react-localization';
+import Login from "@components/Login"
+import app from "@lib/base.js";
 
 
 
@@ -34,23 +36,50 @@ const label = new LocalizedStrings({
     paintings: "paintings",
     tea: "tea",
     register: "register",
-    login: "login"
+
   },
   ru: {
     plants: "растения",
     paintings: "картинки",
     tea: "чай",
     register: "зарегистрироваться",
-    login: "логин"
+
   },
   kr: {
     plants: "식물",
     paintings: "그림",
     tea: "차",
     register: "회원가입",
-    login: "로그인"
+
   }
 });
+
+const getSiderLayout = () => {
+  return ([
+    {
+      label: label.plants,
+      link: "/plants",
+      icon: faSeedling
+    },
+    {
+      label: label.paintings,
+      link: "/paintings",
+      icon: faPalette
+    },
+    {
+      label: label.tea,
+      link: "/tea",
+      icon: faMugHot
+    },
+    {
+      label: label.register,
+      link: "/register",
+      icon: faUserPlus
+    },
+
+
+  ])
+};
 
 
 
@@ -76,40 +105,22 @@ export function redirectUser(ctx, location) {
 function NextApp({ Component, pageProps, router }) {
 
 
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    app.auth().onAuthStateChanged((user) => {
+      setCurrentUser(user)
+      setPending(false)
+    });
+  }, []);
+
+
+  const [loginVisible, setLoginVisible] = useState(false);
+
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
     setCollapsed(!collapsed);
   };
-  const getSiderLayout = () => {
-    return ([
-      {
-        label: label.plants,
-        link: "/plants",
-        icon: faSeedling
-      },
-      {
-        label: label.paintings,
-        link: "/paintings",
-        icon: faPalette
-      },
-      {
-        label: label.tea,
-        link: "/tea",
-        icon: faMugHot
-      },
-      {
-        label: label.register,
-        link: "/register",
-        icon: faUserPlus
-      },
-      {
-        label: label.login,
-        link: "/login",
-        icon: faSignInAlt
-      }
 
-    ])
-  };
   let siderLayout = getSiderLayout();
   const [language, setLanguage] = useState('en');
   const toggleLanguage = (language) => {
@@ -123,6 +134,13 @@ function NextApp({ Component, pageProps, router }) {
     console.log(key);
 
     switch (key) {
+      case "logout":
+        app.auth().signOut();
+        message.success("Logout Success")
+        break;
+      case "login":
+        setLoginVisible(true);
+        break;
       case "en":
         toggleLanguage("en");
         break;
@@ -139,8 +157,8 @@ function NextApp({ Component, pageProps, router }) {
 
   const menu = (
     <Menu placement="bottomRight" style={{ marginRight: "24px" }} onClick={({ item, key, keyPath, domEvent }) => settingsClick(item, key, keyPath, domEvent)}>
-      {/* <Menu.Item>Login</Menu.Item>
-      <Menu.Item>Logout</Menu.Item> */}
+      {currentUser ? <Menu.Item key="logout">Logout</Menu.Item> : <Menu.Item key="login">Login</Menu.Item>}
+      {/*<Menu.Item>Logout</Menu.Item> */}
       <Menu.Item key="en">
 
         <CheckableTag checked={language === "en"} className={language === "en" ? "" : "ant-tag-green"}>
@@ -168,6 +186,7 @@ function NextApp({ Component, pageProps, router }) {
   );
 
   return (
+
     <Fragment >
       <ConfigProvider>
         <Head>
@@ -225,6 +244,14 @@ function NextApp({ Component, pageProps, router }) {
             </Content>
           </Layout>
         </Layout>
+        <Modal
+          visible={loginVisible}
+          onCancel={() => setLoginVisible(false)}
+
+          footer={null}
+        >
+          <Login onFinish={() => setLoginVisible(false)} />
+        </Modal>
       </ConfigProvider>
     </Fragment >
   );

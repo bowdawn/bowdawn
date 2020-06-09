@@ -1,6 +1,4 @@
-import { Form, Input, Button, Checkbox, Row, Col, message } from 'antd';
-
-
+import { Form, Input, Button, Row, Col, message } from 'antd';
 import themeVariables from '@constants/themeVariables';
 import app from "@lib/base"
 
@@ -11,7 +9,8 @@ export default function Login(props) {
             await app
                 .auth()
                 .signInWithEmailAndPassword(email, password);
-            message.success('This is a success message');
+            message.success('Login Success');
+            props.onFinish();
 
         } catch (error) {
             message.error(error.toString());

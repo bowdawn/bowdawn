@@ -21,13 +21,13 @@ export const AuthProvider = ({ children }) => {
         // Check that a new route is OK
         const handleRouteChange = url => {
             if (url === '/plants' && !currentUser) {
-                window.location.href = '/login'
+                window.location.href = '/'
             }
         }
 
         // Check that initial route is OK
         if (pathname === '/plants' && currentUser === null) {
-            window.location.href = '/login'
+            window.location.href = '/'
         }
 
         // Monitor routes

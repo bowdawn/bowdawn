@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <div>This is the main page</div>
-      <Button onClick={() => app.auth().signOut()}>Sign out</Button>
+
     </>
   );
 };
