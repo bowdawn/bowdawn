@@ -143,10 +143,8 @@ export default function Index({ language, collapsed, ...props }) {
                 item.order = index;
                 await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "modifyPlant", plant: item }) })
             });
-
             mutate('/api');
             setData(newData);
-
 
         },
         [data],
@@ -155,7 +153,7 @@ export default function Index({ language, collapsed, ...props }) {
     const manager = useRef(RNDContext);
 
 
-    const plantData = useSWR(`/api`, fetcher).data;
+    const plantData = useSWR(`/api`, fetcher, { onSuccess: (data, key, config) => { setData(data.plants) } }).data;
     const error = useSWR(`/api`, fetcher).error;
 
     if (error) {
@@ -170,6 +168,14 @@ export default function Index({ language, collapsed, ...props }) {
         setData(plantData.plants)
     }
 
+    async function deletePlant(id) {
+        const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "deletePlant", plantId: id }) });
+        if (res.status === 200) {
+            message.success("the plant was deleted");
+            mutate('/api');
+
+        }
+    };
 
 
 
@@ -201,6 +207,10 @@ export default function Index({ language, collapsed, ...props }) {
                 <CreatePlant onFinish={() => {
                     setCreatePlantVisible(false);
                     mutate('/api');
+
+
+
+
                 }} />
             </Modal>
             <Modal
@@ -213,16 +223,10 @@ export default function Index({ language, collapsed, ...props }) {
                 <ModifyPlant plantProps={modifyPlantVisible} onFinish={() => {
                     setModifyPlantVisible(false);
                     mutate('/api');
+
                 }} />
             </Modal>
         </div>
     );
 }
 
-async function deletePlant(id) {
-    const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "deletePlant", plantId: id }) });
-    if (res.status === 200) {
-        message.success("the plant was deleted");
-        mutate('/api');
-    }
-};

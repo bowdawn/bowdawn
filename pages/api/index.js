@@ -10,6 +10,8 @@ export default (req, res) => {
         firebase
             .collection('plants')
             .orderBy("order")
+            .orderBy("createdTime")
+
             .get()
             .then(snapshot => {
                 let data = [];

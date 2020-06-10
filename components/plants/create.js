@@ -1,4 +1,4 @@
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button, message, InputNumber } from 'antd';
 import themeVariables from '@constants/themeVariables';
 
 export default function CreatePlant({ language, collapsed, ...props }) {
@@ -6,11 +6,12 @@ export default function CreatePlant({ language, collapsed, ...props }) {
 
 
     async function onFinish(values) {
-        const { nameEn, nameRu, nameKr } = values;
+        const { nameEn, nameRu, nameKr, quantity } = values;
         let plant = {
             nameEn: nameEn,
             nameRu: nameRu,
-            nameKr: nameKr
+            nameKr: nameKr,
+            quantity: quantity
         };
         const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "createPlant", plant: plant }) })
         if (res.status === 200) {
@@ -51,6 +52,13 @@ export default function CreatePlant({ language, collapsed, ...props }) {
                 rules={[{ required: true, message: 'Please input a Korean Value!' }]}
             >
                 <Input />
+            </Form.Item>
+            <Form.Item
+                label="quantity"
+                name="quantity"
+                rules={[{ required: true, message: 'Please input a quantity' }, { type: "number", message: " Please input a number" }]}
+            >
+                <InputNumber style={{ width: "100%" }} />
             </Form.Item>
 
             <Form.Item >
