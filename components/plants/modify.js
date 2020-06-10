@@ -4,13 +4,14 @@ import themeVariables from '@constants/themeVariables';
 export default function ModifyPlant({ language, collapsed, ...props }) {
 
 
-    const { id, nameEn, nameKr, nameRu } = props.plantProps;
+    const { id, nameEn, nameKr, nameRu, order } = props.plantProps;
 
     async function onFinish(values) {
 
         const { nameEn, nameRu, nameKr } = values;
         let plant = {
             id: id,
+            order: order,
             nameEn: nameEn,
             nameRu: nameRu,
             nameKr: nameKr

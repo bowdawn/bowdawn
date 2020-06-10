@@ -41,6 +41,7 @@ const DragableBodyRow = ({ index, moveRow, className, style, ...restProps }) => 
         },
         drop: item => {
             moveRow(item.index, index);
+
         },
     });
     const [, drag] = useDrag({
@@ -131,14 +132,21 @@ export default function Index({ language, collapsed, ...props }) {
     const moveRow = useCallback(
         (dragIndex, hoverIndex) => {
             const dragRow = data[dragIndex];
-            setData(
-                update(data, {
-                    $splice: [
-                        [dragIndex, 1],
-                        [hoverIndex, 0, dragRow],
-                    ],
-                }),
-            );
+
+            const newData = update(data, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, dragRow],
+                ],
+            });
+            newData.forEach(async (item, index) => {
+                item.order = index;
+                await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "modifyPlant", plant: item }) })
+            });
+
+            setData(newData);
+
+
         },
         [data],
     );

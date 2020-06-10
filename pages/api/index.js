@@ -9,6 +9,7 @@ export default (req, res) => {
     if (body.method === "getPlantList") {
         firebase
             .collection('plants')
+            .orderBy("order")
             .get()
             .then(snapshot => {
                 let data = [];
