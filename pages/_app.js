@@ -1,6 +1,6 @@
 
 
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, useRef } from 'react';
 
 import App from 'next/app';
 import Head from 'next/head';
@@ -74,6 +74,7 @@ const getSiderLayout = () => {
 };
 
 function NextApp({ Component, pageProps, router }) {
+  const contentRef = useRef();
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
@@ -189,11 +190,16 @@ function NextApp({ Component, pageProps, router }) {
                 margin: 24,
                 padding: 24,
                 minHeight: 280,
-              }}>
-              <AuthProvider>
-                <Component {...pageProps} collapsed={collapsed} language={language} router={router} />
-              </AuthProvider>
+              }}
+
+            >
+              <div ref={contentRef}>
+                <AuthProvider>
+                  <Component {...pageProps} containerRef={contentRef} collapsed={collapsed} language={language} router={router} />
+                </AuthProvider>
+              </div>
             </Content>
+
           </Layout>
         </Layout>
         <Modal

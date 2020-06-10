@@ -8,32 +8,19 @@ import { PlusOutlined } from '@ant-design/icons';
 export default function ReactFirebaseFileUpload() {
 
   const [url, setUrl] = useState("");
-
-
-
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([]);
-
-
-
-
-
   const handlePreview = async file => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
-
-
     setPreviewImage(file.url || file.preview);
     setPreviewVisible(true);
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
 
   };
-
-
-
   const onChange = async (info) => {
     console.log(info);
     if (info.file.status === 'uploading') {
@@ -56,7 +43,6 @@ export default function ReactFirebaseFileUpload() {
         }
       );
       setFileList(info.fileList);
-
     }
     if (info.file.status === 'done') {
       message.success(`${info.file.name} file uploaded successfully`);

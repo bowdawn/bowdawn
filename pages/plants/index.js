@@ -1,5 +1,5 @@
 
-import { Space, Button, message, Modal } from "antd"
+import { Space, Button, message, Modal, Table, Dropdown, Menu } from "antd"
 import useSWR, { mutate } from 'swr';
 import CreatePlant from "@components/plants/create"
 import ModifyPlant from "@components/plants/modify"
@@ -7,12 +7,71 @@ import LocalizedStrings from 'react-localization';
 
 
 import { useState } from 'react';
+import {
+    PlusOutlined,
+    DownCircleOutlined,
+    DeleteOutlined,
+    EditOutlined
+} from '@ant-design/icons';
+
+
+
+
 
 const fetcher = async () => {
     const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "getPlantList" }) });
     return res.json();
 };
 export default function Index({ language, collapsed, ...props }) {
+
+    const containerWidth = props.containerRef.current.clientWidth;
+    const columns = [
+        {
+            title: 'nameEn',
+            width: 70,
+            dataIndex: 'nameEn',
+            key: 'nameEn',
+
+        },
+
+        ...(containerWidth > 200 ? [{
+            title: 'nameKr',
+
+            dataIndex: 'nameKr',
+            key: 'nameKr',
+
+        },
+        {
+            title: 'nameRu',
+
+            dataIndex: 'nameRu',
+            key: 'nameRu',
+
+        }] : []),
+
+        {
+            title: <div onClick={() => setCreatePlantVisible(true)}><PlusOutlined /></div>,
+
+            key: 'action',
+            render: (text, record, index) => <Dropdown overlay={
+                <Menu>
+                    <Menu.Item>
+                        <Button onClick={() => setModifyPlantVisible(record)}><EditOutlined /></Button>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Button onClick={() => deletePlant(record.id)}><DeleteOutlined /></Button>
+                    </Menu.Item>
+
+                </Menu>
+
+            } placement="bottomRight"><DownCircleOutlined /></Dropdown>
+        }
+
+
+
+
+
+    ];
     const [createPlantVisible, setCreatePlantVisible] = useState(false);
     const [modifyPlantVisible, setModifyPlantVisible] = useState(false);
     async function deletePlant(id) {
@@ -34,6 +93,7 @@ export default function Index({ language, collapsed, ...props }) {
     const { plants } = data;
 
     const localizedPlants = plants.map((plant =>
+
         new LocalizedStrings({
             en: {
                 name: plant.nameEn
@@ -58,20 +118,8 @@ export default function Index({ language, collapsed, ...props }) {
 
     return (
         <div>
-            <Space direction="vertical">
-                {plants.map((plant, index) => {
+            <Table columns={columns} dataSource={plants} pagination={{ size: "small" }} {...(containerWidth > 90 ? { scroll: { x: 150 } } : {})} />
 
-
-                    return <div>
-                        <Space>
-                            <div>{localizedPlants[index].name}</div>
-                            <Button onClick={() => deletePlant(plant.id)}>delete</Button>
-                            <Button onClick={() => setModifyPlantVisible(plant)}>modify</Button>
-                        </Space>
-                    </div>
-                })}
-                <Button onClick={() => setCreatePlantVisible(true)}>Create</Button>
-            </Space>
             <Modal
                 title="Enter Plant Info"
                 visible={createPlantVisible}
