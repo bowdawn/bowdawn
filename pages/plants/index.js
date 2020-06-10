@@ -21,7 +21,6 @@ import {
 
 
 
-
 const RNDContext = createDndContext(HTML5Backend);
 
 const type = 'DragableBodyRow';
@@ -63,7 +62,6 @@ const DragableBodyRow = ({ index, moveRow, className, style, ...restProps }) => 
 
 
 
-
 const fetcher = async () => {
     const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "getPlantList" }) });
     return res.json();
@@ -94,7 +92,6 @@ export default function Index({ language, collapsed, ...props }) {
             key: 'nameRu',
 
         }] : []),
-
         {
             title: <div onClick={() => setCreatePlantVisible(true)}><PlusOutlined /></div>,
 
@@ -118,33 +115,13 @@ export default function Index({ language, collapsed, ...props }) {
 
 
     ];
+
     const [createPlantVisible, setCreatePlantVisible] = useState(false);
     const [modifyPlantVisible, setModifyPlantVisible] = useState(false);
-    async function deletePlant(id) {
-        const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "deletePlant", plantId: id }) });
-        if (res.status === 200) {
-            message.success("the plant was deleted");
-            mutate('/api');
-        }
-    };
-
     const [data, setData] = useState([])
     const [init, setInit] = useState(false)
 
-    const plantData = useSWR(`/api`, fetcher).data;
-    const error = useSWR(`/api`, fetcher).error;
 
-    if (error) {
-        return 'failed to load'
-    }
-    if (!plantData) {
-        return 'Loading...';
-    }
-
-    if (!init) {
-        setInit(true);
-        setData(plantData.plants);
-    }
 
     const components = {
         body: {
@@ -170,6 +147,23 @@ export default function Index({ language, collapsed, ...props }) {
     const manager = useRef(RNDContext);
 
 
+    const plantData = useSWR(`/api`, fetcher).data;
+    const error = useSWR(`/api`, fetcher).error;
+
+    if (error) {
+        return 'failed to load'
+    }
+    if (!plantData) {
+        return 'Loading...';
+    }
+
+    if (!init) {
+        setInit(true)
+        setData(plantData.plants)
+    }
+
+
+
 
 
 
@@ -178,11 +172,15 @@ export default function Index({ language, collapsed, ...props }) {
     return (
         <div>
             <DndProvider manager={manager.current.dragDropManager}>
-                <Table columns={columns} dataSource={data} components={components}
+                <Table
+                    columns={columns}
+                    dataSource={data}
+                    components={components}
                     onRow={(record, index) => ({
                         index,
                         moveRow,
-                    })} pagination={{ size: "small" }} {...(containerWidth > 90 ? { scroll: { x: 150 } } : {})} />
+                    })}
+                />
             </DndProvider>
             <Modal
                 title="Enter Plant Info"
@@ -210,3 +208,11 @@ export default function Index({ language, collapsed, ...props }) {
         </div>
     );
 }
+
+async function deletePlant(id) {
+    const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "deletePlant", plantId: id }) });
+    if (res.status === 200) {
+        message.success("the plant was deleted");
+        mutate('/api');
+    }
+};
