@@ -72,7 +72,7 @@ export default function Index({ language, collapsed, ...props }) {
     const columns = [
         {
             title: 'nameEn',
-            width: 70,
+
             dataIndex: 'nameEn',
             key: 'nameEn',
 
@@ -94,7 +94,6 @@ export default function Index({ language, collapsed, ...props }) {
         }] : []),
         {
             title: <div onClick={() => setCreatePlantVisible(true)}><PlusOutlined /></div>,
-
             key: 'action',
             render: (text, record, index) => <Dropdown overlay={
                 <Menu>
@@ -180,6 +179,7 @@ export default function Index({ language, collapsed, ...props }) {
                         index,
                         moveRow,
                     })}
+                    scroll={{ x: 400 }}
                 />
             </DndProvider>
             <Modal
