@@ -144,6 +144,7 @@ export default function Index({ language, collapsed, ...props }) {
                 await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "modifyPlant", plant: item }) })
             });
 
+            mutate('/api');
             setData(newData);
 
 
@@ -168,6 +169,7 @@ export default function Index({ language, collapsed, ...props }) {
         setInit(true)
         setData(plantData.plants)
     }
+
 
 
 
