@@ -25,6 +25,7 @@
     "babel-plugin-import": "^1.9.0",
     "firebase": "^7.15.0",
     "firebase-admin": "^8.12.1",
+    "immutability-helper": "^3.1.1",
     "less": "^3.8.1",
     "less-vars-to-js": "^1.3.0",
     "lodash": "^4.17.13",
@@ -32,6 +33,8 @@
     "null-loader": "2.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.13.1",
+    "react-dnd": "^11.1.3",
+    "react-dnd-html5-backend": "^11.1.3",
     "react-dom": "^16.13.1",
     "react-localization": "^1.0.15",
     "swr": "^0.2.0"
