@@ -5,8 +5,13 @@ import CreatePlant from "@components/plants/create"
 import ModifyPlant from "@components/plants/modify"
 import LocalizedStrings from 'react-localization';
 
+import React, { useState, useCallback, useRef } from 'react';
 
-import { useState } from 'react';
+import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import update from 'immutability-helper';
+
+
 import {
     PlusOutlined,
     DownCircleOutlined,
@@ -14,6 +19,47 @@ import {
     EditOutlined
 } from '@ant-design/icons';
 
+
+
+
+const RNDContext = createDndContext(HTML5Backend);
+
+const type = 'DragableBodyRow';
+
+const DragableBodyRow = ({ index, moveRow, className, style, ...restProps }) => {
+    const ref = React.useRef();
+    const [{ isOver, dropClassName }, drop] = useDrop({
+        accept: type,
+        collect: monitor => {
+            const { index: dragIndex } = monitor.getItem() || {};
+            if (dragIndex === index) {
+                return {};
+            }
+            return {
+                isOver: monitor.isOver(),
+                dropClassName: dragIndex < index ? ' drop-over-downward' : ' drop-over-upward',
+            };
+        },
+        drop: item => {
+            moveRow(item.index, index);
+        },
+    });
+    const [, drag] = useDrag({
+        item: { type, index },
+        collect: monitor => ({
+            isDragging: monitor.isDragging(),
+        }),
+    });
+    drop(drag(ref));
+    return (
+        <tr
+            ref={ref}
+            className={`${className}${isOver ? dropClassName : ''}`}
+            style={{ cursor: 'move', ...style }}
+            {...restProps}
+        />
+    );
+};
 
 
 
@@ -82,35 +128,48 @@ export default function Index({ language, collapsed, ...props }) {
         }
     };
 
-    const { data, error } = useSWR(`/api`, fetcher);
+    const [data, setData] = useState([])
+    const [init, setInit] = useState(false)
+
+    const plantData = useSWR(`/api`, fetcher).data;
+    const error = useSWR(`/api`, fetcher).error;
+
     if (error) {
         return 'failed to load'
     }
-    if (!data) {
+    if (!plantData) {
         return 'Loading...';
     }
 
-    const { plants } = data;
+    if (!init) {
+        setInit(true);
+        setData(plantData.plants);
+    }
 
-    const localizedPlants = plants.map((plant =>
+    const components = {
+        body: {
+            row: DragableBodyRow,
+        },
+    };
 
-        new LocalizedStrings({
-            en: {
-                name: plant.nameEn
-            },
-            kr: {
-                name: plant.nameKr
-            },
-            ru: {
-                name: plant.nameRu
-            }
-        })
-    ));
+    const moveRow = useCallback(
+        (dragIndex, hoverIndex) => {
+            const dragRow = data[dragIndex];
+            setData(
+                update(data, {
+                    $splice: [
+                        [dragIndex, 1],
+                        [hoverIndex, 0, dragRow],
+                    ],
+                }),
+            );
+        },
+        [data],
+    );
 
-    localizedPlants.forEach(plant => {
-        plant.setLanguage(language)
+    const manager = useRef(RNDContext);
 
-    });
+
 
 
 
@@ -118,8 +177,13 @@ export default function Index({ language, collapsed, ...props }) {
 
     return (
         <div>
-            <Table columns={columns} dataSource={plants} pagination={{ size: "small" }} {...(containerWidth > 90 ? { scroll: { x: 150 } } : {})} />
-
+            <DndProvider manager={manager.current.dragDropManager}>
+                <Table columns={columns} dataSource={data} components={components}
+                    onRow={(record, index) => ({
+                        index,
+                        moveRow,
+                    })} pagination={{ size: "small" }} {...(containerWidth > 90 ? { scroll: { x: 150 } } : {})} />
+            </DndProvider>
             <Modal
                 title="Enter Plant Info"
                 visible={createPlantVisible}
