@@ -66,6 +66,15 @@ export default function ReactFirebaseFileUpload() {
     }
   };
 
+  const onRemove = file => {
+    const index = fileList.indexOf(file);
+    const newFileList = fileList.slice();
+    newFileList.splice(index, 1);
+    setFileList(newFileList)
+  };
+
+
+
 
 
 
@@ -90,11 +99,8 @@ export default function ReactFirebaseFileUpload() {
         onPreview={handlePreview}
         onChange={(info) => {
           onChange(info)
-        }
-        }
-
-
-
+        }}
+        onRemove={(file) => onRemove(file)}
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>
