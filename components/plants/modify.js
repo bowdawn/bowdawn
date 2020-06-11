@@ -1,20 +1,22 @@
-import { Form, Input, Button, message } from 'antd';
-import themeVariables from '@constants/themeVariables';
+import { Form, Input, Button, message, InputNumber } from 'antd';
+import { number } from "prop-types";
+
 
 export default function ModifyPlant({ language, collapsed, ...props }) {
 
 
-    const { id, nameEn, nameKr, nameRu, order } = props.plantProps;
+    const { id, nameEn, nameKr, nameRu, order, quantity } = props.plantProps;
 
     async function onFinish(values) {
 
-        const { nameEn, nameRu, nameKr } = values;
+        const { nameEn, nameRu, nameKr, quantity } = values;
         let plant = {
             id: id,
             order: order,
             nameEn: nameEn,
             nameRu: nameRu,
-            nameKr: nameKr
+            nameKr: nameKr,
+            quantity: quantity
         };
 
         const res = await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "modifyPlant", plant: plant }) })
@@ -60,6 +62,14 @@ export default function ModifyPlant({ language, collapsed, ...props }) {
                 initialValue={nameKr}
             >
                 <Input />
+            </Form.Item>
+            <Form.Item
+                label="quantity"
+                name="quantity"
+                rules={[{ required: true, message: 'Please input a quantity!' }, { type: "number", message: 'Please input a Number!' }]}
+                initialValue={quantity}
+            >
+                <InputNumber style={{ width: "100%" }} />
             </Form.Item>
 
             <Form.Item >

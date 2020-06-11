@@ -72,7 +72,7 @@ export default function Index({ language, collapsed, ...props }) {
     const containerWidth = props.containerRef.current.clientWidth;
     const columns = [
         {
-            title: 'nameEn',
+            title: 'Name',
 
             dataIndex: 'nameEn',
             key: 'nameEn',
@@ -80,19 +80,21 @@ export default function Index({ language, collapsed, ...props }) {
         },
 
         ...(containerWidth > 200 ? [{
-            title: 'nameKr',
-
+            title: '이름',
             dataIndex: 'nameKr',
             key: 'nameKr',
-
         },
         {
-            title: 'nameRu',
-
+            title: 'Имя',
             dataIndex: 'nameRu',
             key: 'nameRu',
-
-        }] : []),
+        },
+        {
+            title: 'Quantity',
+            dataIndex: 'quantity',
+            key: 'quantity',
+        }
+        ] : []),
         {
             title: <div onClick={() => setCreatePlantVisible(true)}><PlusOutlined /></div>,
             key: 'action',
@@ -140,7 +142,7 @@ export default function Index({ language, collapsed, ...props }) {
                 ],
             });
             newData.forEach(async (item, index) => {
-                item.order = index;
+                item.order = index + 1;
                 await fetch('/api', { method: 'POST', body: JSON.stringify({ method: "modifyPlant", plant: item }) })
             });
             mutate('/api');
