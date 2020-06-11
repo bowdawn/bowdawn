@@ -89,12 +89,13 @@ export default function Index({ language, collapsed, ...props }) {
             dataIndex: 'nameRu',
             key: 'nameRu',
         },
+
+        ] : []),
         {
             title: 'Quantity',
             dataIndex: 'quantity',
             key: 'quantity',
-        }
-        ] : []),
+        },
         {
             title: <div onClick={() => setCreatePlantVisible(true)}><PlusOutlined /></div>,
             key: 'action',
@@ -175,7 +176,6 @@ export default function Index({ language, collapsed, ...props }) {
         if (res.status === 200) {
             message.success("the plant was deleted");
             mutate('/api');
-
         }
     };
 
@@ -197,7 +197,7 @@ export default function Index({ language, collapsed, ...props }) {
                         index,
                         moveRow,
                     })}
-                    scroll={{ x: 400 }}
+                    scroll={{ x: columns.length * 120 }}
                 />
             </DndProvider>
             <Modal

@@ -45,7 +45,6 @@ export default function ModifyPlant({ language, collapsed, ...props }) {
             >
                 <Input />
             </Form.Item>
-
             <Form.Item
                 label="nameRu"
                 name="nameRu"
@@ -71,7 +70,6 @@ export default function ModifyPlant({ language, collapsed, ...props }) {
             >
                 <InputNumber style={{ width: "100%" }} />
             </Form.Item>
-
             <Form.Item >
                 <Button type="primary" htmlType="submit">
                     Submit
