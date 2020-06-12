@@ -3,6 +3,7 @@ import createPlant from "@lib/plants/create"
 import deletePlant from "@lib/plants/delete"
 import modifyPlant from "@lib/plants/modify"
 import fetchPlant from "@lib/plants/fetch"
+import uploadImage from "@lib/storage/uploadImage"
 export default (req, res) => {
     const body = JSON.parse(req.body);
     if (body.method === "getPlantList") {
@@ -16,5 +17,8 @@ export default (req, res) => {
     }
     if (body.method === "modifyPlant") {
         return modifyPlant(body, res);
+    }
+    if (body.method === "uploadImage") {
+        return uploadImage(body, res);
     }
 };
